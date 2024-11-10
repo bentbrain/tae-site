@@ -1,101 +1,133 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const adjectives = [
+    { text: "awesome", emoji: "🌟" },
+    { text: "cool", emoji: "😎" },
+    { text: "smart", emoji: "🧠" },
+    { text: "funny", emoji: "😂" },
+    { text: "creative", emoji: "🎨" },
+    { text: "brilliant", emoji: "💡" },
+    { text: "amazing", emoji: "🤩" },
+    { text: "fantastic", emoji: "🌈" },
+    { text: "kind", emoji: "🤗" },
+    { text: "thoughtful", emoji: "💭" },
+    { text: "generous", emoji: "🎁" },
+    { text: "patient", emoji: "⏳" },
+    { text: "reliable", emoji: "🤝" },
+    { text: "helpful", emoji: "🛠️" },
+    { text: "friendly", emoji: "😊" },
+    { text: "caring", emoji: "❤️" },
+    { text: "trustworthy", emoji: "🤞" },
+    { text: "adventurous", emoji: "🌍" },
+    { text: "lovable", emoji: "💖" },
+    { text: "enthusiastic", emoji: "🎉" },
+    { text: "optimistic", emoji: "☀️" },
+    { text: "witty", emoji: "🥂" },
+    { text: "charming", emoji: "😌" },
+    { text: "considerate", emoji: "🤲" },
+    { text: "humble", emoji: "🙏" },
+    { text: "energetic", emoji: "⚡" },
+    { text: "gracious", emoji: "🎩" },
+    { text: "encouraging", emoji: "📈" },
+    { text: "supportive", emoji: "🤗" },
+    { text: "motivated", emoji: "🚀" },
+    { text: "resilient", emoji: "🌱" },
+    { text: "dedicated", emoji: "🏅" },
+    { text: "determined", emoji: "🏆" },
+    { text: "inspirational", emoji: "🌠" },
+    { text: "open-minded", emoji: "🌐" },
+    { text: "resourceful", emoji: "🛠️" },
+    { text: "hardworking", emoji: "💪" },
+    { text: "positive", emoji: "➕" },
+    { text: "loyal", emoji: "🐾" },
+    { text: "unique", emoji: "🌟" },
+    { text: "exceptional", emoji: "🎖️" },
+    { text: "talented", emoji: "🎶" },
+    { text: "imaginative", emoji: "🖌️" },
+    { text: "skillful", emoji: "🧰" },
+    { text: "gentle", emoji: "🕊️" },
+    { text: "understanding", emoji: "👂" },
+    { text: "compassionate", emoji: "💞" },
+    { text: "joyful", emoji: "🎊" },
+    { text: "humorous", emoji: "😂" },
+    { text: "thought-provoking", emoji: "🤔" },
+    { text: "radiant", emoji: "🌞" },
+    { text: "warm-hearted", emoji: "💓" },
+    { text: "innovative", emoji: "💡" },
+    { text: "selfless", emoji: "🤲" },
+    { text: "diligent", emoji: "📅" },
+    { text: "polite", emoji: "🙇" },
+    { text: "incredible", emoji: "🎆" },
+    { text: "uplifting", emoji: "⬆️" },
+    { text: "forgiving", emoji: "🌷" },
+    { text: "adaptable", emoji: "🌊" },
+    { text: "bold", emoji: "🦁" },
+    { text: "intuitive", emoji: "🔮" },
+    { text: "perceptive", emoji: "👀" },
+    { text: "insightful", emoji: "🧩" },
+    { text: "versatile", emoji: "🔄" },
+    { text: "graceful", emoji: "🕊️" },
+    { text: "thoughtful", emoji: "🌻" },
+    { text: "empathetic", emoji: "🥰" },
+    { text: "balanced", emoji: "⚖️" },
+    { text: "amusing", emoji: "🎭" },
+    { text: "endearing", emoji: "😍" },
+    { text: "magnetic", emoji: "🧲" },
+    { text: "influential", emoji: "📣" },
+    { text: "steadfast", emoji: "🌳" },
+    { text: "vivacious", emoji: "🎇" },
+    { text: "fearless", emoji: "🦅" },
+    { text: "compelling", emoji: "🌌" },
+    { text: "artistic", emoji: "🖼️" },
+    { text: "peaceful", emoji: "🕊️" },
+    { text: "proactive", emoji: "⚙️" },
+    { text: "relaxed", emoji: "🌿" },
+    { text: "wise", emoji: "🦉" },
+    { text: "fair-minded", emoji: "⚖️" },
+    { text: "tactful", emoji: "💬" },
+    { text: "honest", emoji: "👌" },
+    { text: "self-assured", emoji: "🧍" },
+    { text: "jovial", emoji: "🎈" },
+    { text: "motivating", emoji: "💥" },
+    { text: "passionate", emoji: "🔥" },
+    { text: "bright", emoji: "💡" },
+    { text: "receptive", emoji: "👂" },
+    { text: "observant", emoji: "🔍" },
+    { text: "curious", emoji: "🧐" },
+    { text: "analytical", emoji: "🧮" },
+    { text: "genuine", emoji: "💯" },
+    { text: "considerate", emoji: "💝" },
+    { text: "supportive", emoji: "🤝" },
+    { text: "respectful", emoji: "🤲" },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+  const [adjective, setAdjective] = useState(adjectives[0]);
+
+  const handleClick = () => {
+    // set a random adjective, but not the same one twice
+    const newAdjective =
+      adjectives[Math.floor(Math.random() * adjectives.length)];
+    if (newAdjective !== adjective) {
+      setAdjective(newAdjective);
+    } else {
+      handleClick();
+    }
+  };
+
+  return (
+    <div className="grid text-center place-items-center p-3 md:p-6 lg:p-10 min-h-dvh">
+      <div className="grid gap-4 place-items-center">
+        <h1 className="font-bold text-2xl md:text-5xl ">{adjective.emoji}</h1>
+        <h1 className="font-bold text-lg md:text-3xl">
+          Tae is <span className="text-fuchsia-600">{adjective.text}</span>!
+        </h1>
+        <Button onClick={handleClick}>Click me</Button>
+      </div>
     </div>
   );
 }
